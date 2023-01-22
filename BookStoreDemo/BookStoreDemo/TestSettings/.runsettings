@@ -7,7 +7,6 @@
 				<Headless>false</Headless>
 				<Channel>chrome</Channel>
 				<DefaultViewport>null</DefaultViewport>
-				<!--<SlowMo>100</SlowMo>-->
 			</LaunchOptions>
 		</Playwright>
 </RunSettings>

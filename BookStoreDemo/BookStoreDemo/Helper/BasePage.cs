@@ -1,15 +1,15 @@
 ﻿namespace BookStoreDemo.Helper;
 
-public class Until
+public class BasePage
 {
     private readonly IPage _page;
 
-    public Until(IPage page)
+    public BasePage(IPage page)
     {
         _page = page;
     }
 
-    public async Task ScreenshotWhenTestsFails()
+    public async Task TakeScreenshot()
     {
         var testContext = TestContext.CurrentContext;
 

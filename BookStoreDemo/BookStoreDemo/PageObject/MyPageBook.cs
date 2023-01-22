@@ -1,26 +1,25 @@
-﻿using BookStoreDemo.Helper;
-using BookStoreDemo.PlaywrightDriver;
-using Microsoft.Playwright.NUnit;
-namespace BookStoreDemo.PageObject;
+﻿namespace BookStoreDemo.PageObject;
 
-public class MyPageBook: PageTest
+public class MyPageBook : PageTest
 {
-    public Until _utilPage;
-    public PwDriver _wpDriver;
+    public BasePage _basePage;
+    public IConfiguration _configuration;
+    public LoginPage _loginPage;
 
     [SetUp]
     public void BeforeEachTest()
     {
-        _wpDriver = new PwDriver(Page);
-        _utilPage = new Until(Page);
+        _loginPage =new LoginPage(Page);
+        _configuration = ConfigHelper.Configure();
+        _basePage = new BasePage(Page);
     }
 
 
     [TearDown]
     public async Task WebAppPageAfterEachTest()
     {
-        await _utilPage.ScreenshotWhenTestsFails();
-        await Page.CloseAsync();
+        await _basePage.TakeScreenshot();
+        await _loginPage.Logout();
     }
 }
 

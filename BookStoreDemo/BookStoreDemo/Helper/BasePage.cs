@@ -1,24 +1,20 @@
 ﻿namespace BookStoreDemo.Helper;
 
-public class BasePage
+public  class BasePage
 {
-    private readonly IPage _page;
+    private ConfigHelper _configHelper;
+    PageExtension _extension;
 
-    public BasePage(IPage page)
+    [SetUp]
+    public  void SetUp()
     {
-        _page = page;
+        _configHelper.Configure();
     }
 
-    public async Task TakeScreenshot()
+    [TearDown]
+    public  async Task AfterTest()
     {
-        var testContext = TestContext.CurrentContext;
-
-        if (testContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
-        {
-            var uniqueName = Path.Combine(Path.GetTempPath(), $"{testContext.Test.Name}_{DateTime.Now:yyyy_MM_dd_HH_mm_ssss}.png");
-            await _page.ScreenshotAsync(new PageScreenshotOptions { Path = uniqueName });
-            TestContext.AddTestAttachment(uniqueName, testContext.Test.MethodName);
-        }
+        await _extension.TakeScreenshot();
     }
 }
 

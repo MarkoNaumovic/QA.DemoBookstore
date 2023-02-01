@@ -1,10 +1,10 @@
 ﻿namespace BookStoreDemo.Helper;
 
-public static class ConfigHelper
+public abstract  class ConfigHelper
 {
-    private static IConfiguration configuration;
+    private  IConfiguration configuration;
 
-    public static IConfiguration Configure()
+    public  IConfiguration Configure()
     {
         if (configuration is not null)
             return configuration;

@@ -2,43 +2,24 @@
 
 public class LoginPage
 {
-    private readonly IPage page;
-    private readonly IConfiguration _configuration;
+    private readonly IPage _page;
+    private static IConfiguration configuration;
 
-    public LoginPage(IPage page)
+    protected LoginPage(IPage page)
     {
-        this.page = page;
-        _configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables()
-            .Build();
-        _ = InitializeContextAsync();
+        _page = page;
     }
 
-    public async Task LogIn(string username, string password)
+    private ILocator UserName => _page.Locator("#username");
+    private ILocator Password => _page.Locator("#password");
+    private ILocator ButtonLogin => _page.Locator("button:has-text('Log in')");
+
+    public async Task Login(string username, string pass)
     {
-        await page.GotoAsync(_configuration["BaseUrl"], new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle });
-        await page.FillAsync("#username", username);
-        await page.FillAsync("#password", password);
-        await page.RunAndWaitForNavigationAsync(async () =>
-        {
-            await page.ClickAsync("button:has-text('Log in')");
-        });
-
-        await page.WaitForNavigationAsync(new() { UrlRegex = new Regex(@"\#/profile$") });
-    }
-
-    public async Task Logout() => await page.ClickAsync("#submit");
-
-    private async Task InitializeContextAsync()
-    {
-        if (page.Context.Browser.Contexts.Count > 0)
-            return;
-
-        await page.Context.Browser.NewContextAsync(new()
-        {
-            AcceptDownloads = true,
-            IgnoreHTTPSErrors = true,
-        });
+        await _page.GotoAsync(configuration["BaseUrl"], new PageGotoOptions { WaitUntil = WaitUntilState.NetworkIdle });
+        await UserName.FillAsync(username);
+        await Password.FillAsync(pass);
+        await ButtonLogin.ClickAsync();
+        await _page.WaitForURLAsync(new Regex(@"\#/profile$"));
     }
 }

@@ -1,19 +1,10 @@
 ﻿namespace BookStoreDemo.Helper;
 
-public abstract  class ConfigHelper
+public static  class ConfigHelper
 {
-    private  IConfiguration configuration;
-
-    public  IConfiguration Configure()
-    {
-        if (configuration is not null)
-            return configuration;
-
-        configuration = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables()
-            .Build();
-        return configuration;
-    }
+    public static readonly IConfiguration Configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        .AddEnvironmentVariables()
+        .Build();
 }
 

@@ -1,13 +1,10 @@
-﻿using Microsoft.Playwright.NUnit;
-
-namespace BookStoreDemo.Abstract;
+﻿namespace BookStoreDemo.Abstract;
 
 public abstract class BasePage
 {
-    protected IPage Page { get; }
+    protected IPage Page;
     protected BasePage(IPage page)
     {
         Page = page;
     }
 }
-

@@ -12,16 +12,19 @@ public abstract class BaseTest : PageTest
 
 
     [SetUp]
-    public void SetUp()
+    public async Task SetUp()
     {
+        
         _configuration = ConfigHelper.Configuration;
         URLs.BaseUrl = _configuration["BaseUrl"];
+        await TraceRecorderHelper.StartTestTracingAsync(Page);
     }
 
     [TearDown]
     public async Task AfterTest()
     {
         await Page.TakeScreenshotIfFailed();
+        await TraceRecorderHelper.AttachTraceViewerToTestContextWhenTestFailsAsync(Page);
         await Page.CloseAsync();
     }
 }

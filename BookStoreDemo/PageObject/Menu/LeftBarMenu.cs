@@ -10,6 +10,6 @@ public class LeftBarMenu : BasePage
     }
     public ILocator SelectOption(string option) => Page.Locator(".element-list .menu-list span").GetByText(option).First;
 
-    public async Task LeftMenuOption(string option) => await SelectOption(option).ClickAsync();
+    public async Task ClickOnLeftMenuOption(string option) => await SelectOption(option).ClickAsync();
 }
 

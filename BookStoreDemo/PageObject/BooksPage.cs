@@ -9,18 +9,43 @@ public class BooksPage : BasePage
 
     }
 
-    private ILocator InputSearch => Page.Locator("#searchBox");
-    private ILocator ClickOnBook => Page.Locator(".mr-2 a");
-  
-    private ILocator ButtonAddToCollection => Page.GetByRole(AriaRole.Button, new() { Name = "Add To Your Collection" });
-    public ILocator SearchResult(string text) => Page.GetByRole(AriaRole.Row, new() { Name = text });
+    private ILocator SearchInput => Page.Locator("#searchBox");
+    private ILocator ButtonGoToBookStore => Page.Locator(".text-left #addNewRecordButton");
 
-    public async Task SearchForBook(string book) => await InputSearch.FillAsync(book);
+    private ILocator SelectBook(string book) => Page.GetByRole(AriaRole.Link, new() { Name = book });
 
-    public async Task ClickOnBookInRow() { await ClickOnBook.ClickAsync(); }
+    private ILocator ButtonAddToCollection => Page.Locator(".text-right #addNewRecordButton");
+    public ILocator SearchResultRow(string text) => Page.GetByRole(AriaRole.Row, new() { Name = text });
+    public ILocator AuthorOfTheBook(string author) => Page.GetByRole(AriaRole.Gridcell, new() { Name = author });
 
-    public async Task AddToCollection() => await ButtonAddToCollection.ClickAsync();
+    public async Task SearchForBook(string book) => await SearchInput.FillAsync(book);
 
+    public async Task ClickOnBookInRow(string book) => await SelectBook(book).ClickAsync();
 
+    public async Task ClickOnAddToCollection() => await ButtonAddToCollection.ClickAsync();
+
+    public async Task ClickGoToBookStore() => await ButtonGoToBookStore.ClickAsync();
+
+    public async Task PopUpConfirm()
+    {
+        var popup = await Page.RunAndWaitForPopupAsync(async () =>
+        {
+            await Page.GetByText("OK").ClickAsync();
+        });
+        await popup.WaitForLoadStateAsync();
+    }
+
+    public async Task ScrollIntoViewIfNeeded()
+    {
+        var elementHandle = await Page.QuerySelectorAsync("#gotoStore");
+        if (elementHandle != null)
+        {
+            await Page.EvaluateAsync("element => element.scrollIntoView()", elementHandle);
+        }
+        else
+        {
+            Console.WriteLine("Element not found");
+        }
+    }
 }
 

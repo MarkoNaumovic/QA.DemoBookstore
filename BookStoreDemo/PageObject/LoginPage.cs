@@ -1,10 +1,15 @@
 ﻿using BookStoreDemo.Abstract;
 using BookStoreDemo.TestSettings;
+using Microsoft.Playwright;
+using System.Text;
 
 namespace BookStoreDemo.PageObject;
 
 public class LoginPage : BasePage
 {
+    protected IAPIRequestContext _apiRequestContext;
+    protected string _apiBaseUrl = "https://www.demoqa.com";
+
     public LoginPage(IPage page) : base(page)
     {
 
@@ -16,7 +21,7 @@ public class LoginPage : BasePage
 
     public async Task Login(string username, string pass)
     {
-        await Page.GotoAsync(GetUrl(), new PageGotoOptions() { WaitUntil = WaitUntilState.DOMContentLoaded });
+        await Page.GotoAsync(GetUrl(),new(){WaitUntil = WaitUntilState.Load});
         await UsernameInput.FillAsync(username);
         await PasswordInput.FillAsync(pass);
         await ButtonLogin.ClickAsync();

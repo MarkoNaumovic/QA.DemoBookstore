@@ -91,6 +91,7 @@ public class SearchTestSet : BaseTest.BaseTest
         await bookspage.ClickOnAddToCollection();
         await bookspage.ClickGoToBookStore();
 
+        await bookspage.SearchForBook("Speaking JavaScript");
         await bookspage.ClickOnBookInRow("Speaking JavaScript");
         await bookspage.ClickOnAddToCollection();
         await bookspage.ClickGoToBookStore();

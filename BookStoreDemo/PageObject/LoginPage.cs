@@ -7,9 +7,6 @@ namespace BookStoreDemo.PageObject;
 
 public class LoginPage : BasePage
 {
-    protected IAPIRequestContext _apiRequestContext;
-    protected string _apiBaseUrl = "https://www.demoqa.com";
-
     public LoginPage(IPage page) : base(page)
     {
 

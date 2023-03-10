@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace BookStoreTestSet.BaseTest;
+namespace BookStoreTestSet;
 public abstract class BaseTest : PageTest
 {
     public IConfiguration _configuration;
@@ -25,6 +25,5 @@ public abstract class BaseTest : PageTest
     {
         await Page.TakeScreenshotIfFailed();
         await TraceRecorderHelper.AttachTraceViewerToTestContextWhenTestFailsAsync(Page);
-        await Page.CloseAsync();
     }
 }

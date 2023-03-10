@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using BookStoreDemo.Abstract;
+﻿using BookStoreDemo.Abstract;
 
 namespace BookStoreDemo.PageObject;
 
@@ -13,7 +12,7 @@ public class ProfilePage : BasePage
     private ILocator PopupAlert => Page.Locator(".modal-content");
     private ILocator ConfirmDeleteBooks => PopupAlert.Locator("#closeSmallModal-ok");
     private ILocator ButtonDeleteAllBooks => Page.Locator(".di #submit");
-    public ILocator BookInRow=> Page.Locator(".rt-tbody .rt-tr-group .rt-tr").First;
+    public ILocator BookInRow => Page.Locator(".rt-tbody .rt-tr-group .rt-tr").First;
 
     private ILocator SelectBookLink(string book) => Page.GetByRole(AriaRole.Link, new() { Name = book });
     public ILocator IsbnNumberOfBook(string isbnNumber) => Page.Locator("#ISBN-wrapper").GetByText(isbnNumber);

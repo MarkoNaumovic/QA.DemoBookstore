@@ -1,7 +1,5 @@
 ﻿using BookStoreDemo.Abstract;
 using BookStoreDemo.TestSettings;
-using Microsoft.Playwright;
-using System.Text;
 
 namespace BookStoreDemo.PageObject;
 
@@ -18,7 +16,7 @@ public class LoginPage : BasePage
 
     public async Task Login(string username, string pass)
     {
-        await Page.GotoAsync(GetUrl(),new(){WaitUntil = WaitUntilState.Load});
+        await Page.GotoAsync(GetUrl(), new() { WaitUntil = WaitUntilState.Load });
         await UsernameInput.FillAsync(username);
         await PasswordInput.FillAsync(pass);
         await ButtonLogin.ClickAsync();

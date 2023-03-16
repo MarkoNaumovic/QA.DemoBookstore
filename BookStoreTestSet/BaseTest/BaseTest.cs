@@ -14,10 +14,14 @@ public abstract class BaseTest : PageTest
     [SetUp]
     public async Task SetUp()
     {
-        
+        await TraceRecorderHelper.StartTestTracingAsync(Page);
+    }
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
         _configuration = ConfigHelper.Configuration;
         URLs.BaseUrl = _configuration["BaseUrl"];
-        await TraceRecorderHelper.StartTestTracingAsync(Page);
     }
 
     [TearDown]

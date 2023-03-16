@@ -12,14 +12,14 @@ public class LoginPage : BasePage
 
     private ILocator UsernameInput => Page.Locator("#userName");
     private ILocator PasswordInput => Page.Locator("#password");
-    private ILocator ButtonLogin => Page.Locator("#login");
+    private ILocator LoginButton => Page.Locator("#login");
 
     public async Task Login(string username, string pass)
     {
         await Page.GotoAsync(GetUrl(), new() { WaitUntil = WaitUntilState.Load });
         await UsernameInput.FillAsync(username);
         await PasswordInput.FillAsync(pass);
-        await ButtonLogin.ClickAsync();
+        await LoginButton.ClickAsync();
     }
 
     public string GetUrl() => $"{URLs.BaseUrl}/login";

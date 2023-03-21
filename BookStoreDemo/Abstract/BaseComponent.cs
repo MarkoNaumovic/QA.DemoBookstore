@@ -8,6 +8,5 @@ public class BaseComponent
     {
         Page = page;
     }
-
 }
 

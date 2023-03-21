@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace BookStoreTestSet;
+namespace BookStoreTestSet.Base;
 public abstract class BaseTest : PageTest
 {
     public IConfiguration _configuration;

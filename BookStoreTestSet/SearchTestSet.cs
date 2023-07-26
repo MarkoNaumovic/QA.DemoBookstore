@@ -1,5 +1,5 @@
-﻿using Base;
-using BookStoreDemo.PageObject;
+﻿using BookStoreDemo.PageObject;
+using BookStoreTestSet.Base;
 using NUnit.Framework;
 
 namespace BookStoreTestSet;
@@ -120,7 +120,7 @@ public class SearchTestSet : BaseTest
         if (bookProfile != null && bookProfile.Count > 0 && !string.IsNullOrEmpty(bookProfile[0]))
         {
             await profilePage.ClickDeleteAllBooks();
-            await bookspage.Popup.ClickOnDeleteBooksButton();
+            await bookspage.PopUp.ClickOnDeleteBooksButton();
         }
     }
 }
